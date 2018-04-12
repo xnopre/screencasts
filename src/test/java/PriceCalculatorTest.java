@@ -6,13 +6,14 @@ public class PriceCalculatorTest {
 
     @Test
     public void test_calculate() {
-        // Préparation
         PriceCalculator priceCalculator = new PriceCalculator();
 
-        // Test
-        String result = priceCalculator.calculate(3, 1.21);
+        String result = priceCalculator
+                .withQuantity(3)
+                .withUnitPrice(1.21)
+                .getTotalPrice();
 
-        // Vérification
         assertEquals("3.63 €", result);
     }
+
 }
