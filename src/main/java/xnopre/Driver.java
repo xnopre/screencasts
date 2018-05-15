@@ -3,13 +3,20 @@ package xnopre;
 import lib.Connector;
 
 public class Driver {
-    private Connector connector;
 
-    public Driver(Connector connector) {
+    private Connector connector;
+    private Encoder encoder;
+
+    public Driver(Connector connector, Encoder encoder) {
         this.connector = connector;
+        this.encoder = encoder;
     }
 
     public void openGate(int gateNumber) {
-        connector.sendFrame("OG"+gateNumber);
+        try {
+            connector.sendFrame(encoder.buildFrameToOpenGate(gateNumber));
+        } catch (Exception e) {
+            throw new DriverException("Erreur de transmission de la trame");
+        }
     }
 }
